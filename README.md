@@ -52,3 +52,19 @@ Get help: [Post in our discussion board](https://github.com/orgs/skills/discussi
 &copy; 2023 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
 </footer>
+
+## Spring 事务管理示例：向 `springtext.user` 表新增数据
+
+仓库中新增了一个最小示例 `spring-transaction-demo/`，演示如何用 Spring 的声明式事务（`@Transactional`）向 `springtext` 数据库的 `user` 表插入数据：
+
+1. 执行 `src/main/resources/schema.sql` 创建数据库和 `user` 表。
+2. 在 `src/main/resources/application.yml` 中配置 MySQL 连接。
+3. 调用 `POST /users` 接口，`UserService#addUser` 会在事务中执行插入；发生异常时自动回滚。
+
+示例请求：
+
+```bash
+curl -X POST http://localhost:8080/users \
+  -H "Content-Type: application/json" \
+  -d '{"username":"alice","email":"alice@example.com"}'
+```
